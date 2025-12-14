@@ -608,7 +608,7 @@ elif nav == "의류 실측과 인체 치수 간 대응 관계 분석":
     # =========================================================
     # A) 무신사 데이터 로드 + df_avg(상품 단위) 생성
     # =========================================================
-    MUSINSA_FILE = "/Users/yoonseokim/Desktop/25-2 컴탐/기말 프로젝트/musinsa_top100_age20_24.pkl"
+    MUSINSA_FILE = BASE_DIR / "data" / "musinsa_top100_age20_24.pkl"
 
     @st.cache_data
     def load_pickle(path: str):
