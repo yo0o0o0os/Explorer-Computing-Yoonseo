@@ -1,3 +1,6 @@
+from pathlib import Path
+BASE_DIR = Path(__file__).resolve().parent
+
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -75,7 +78,9 @@ if nav == "Home":
           - **총장**, **어깨너비**, **가슴단면**, **소매길이**
         - 제품별 여러 사이즈가 존재할 경우, 분석용 대표값은 **사이즈표 실측의 평균값**으로 정의함""")
 
-    st.image("/Users/yoonseokim/Desktop/25-2 컴탐/기말 프로젝트/OG.png", width=400)
+    img_path = BASE_DIR / "assets" / "OG.png"
+    st.image(img_path, width=400)
+
     st.markdown(" ")
     st.markdown("""
         **2) 사이즈코리아 인체치수 데이터**
@@ -84,7 +89,9 @@ if nav == "Home":
         - 조금 더 정확한 3D 측정 데이터를 추후 분석할 때 사용 
         - 사이즈코리아 웹사이트 자료실에 공개된 자료를 활용했으며, Raw 데이터 없이 최종 통계량만 제공되었음""")
 
-    st.image("/Users/yoonseokim/Desktop/25-2 컴탐/기말 프로젝트/logo.png", width=400)
+    img_path = BASE_DIR / "assets" / "logo.png"
+    st.image(img_path, width=400)
+
     st.divider()
     st.markdown("""
         ### **☑️ 분석 내용**
@@ -101,18 +108,19 @@ elif nav == "무신사 사이즈 데이터":
     st.title("🛍️ 무신사 사이즈 데이터")
     st.caption("분석 대상: 20–24세 여성 / 무신사 랭킹 Top 100")
 
-    MUSINSA_FILE = "/Users/yoonseokim/Desktop/25-2 컴탐/기말 프로젝트/musinsa_top100_age20_24.pkl"
+    MUSINSA_FILE = BASE_DIR / "data" / "musinsa_top100_age20_24.pkl"
 
     @st.cache_data
-    def load_pickle(path: str):
+    def load_pickle(path: Path):
         with open(path, "rb") as f:
             return pickle.load(f)
 
-    if not os.path.exists(MUSINSA_FILE):
+    if not MUSINSA_FILE.exists():
         st.error(f"데이터 파일이 없습니다:\n{MUSINSA_FILE}")
         st.stop()
 
     data = load_pickle(MUSINSA_FILE)
+
     items = data.get("items", {})
     if not items:
         st.error("data['items']가 비어 있습니다.")
