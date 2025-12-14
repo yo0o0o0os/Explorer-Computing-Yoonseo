@@ -2,3 +2,6 @@ streamlit
 pandas
 matplotlib
 openpyxl
+pickle
+os
+plotly.express
